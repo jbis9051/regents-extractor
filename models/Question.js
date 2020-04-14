@@ -3,6 +3,9 @@ const TextCollection = require('./TextsCollection');
 class Question {
     constructor(questionObjs, num) {
         this.num = num;
+
+
+
         this.objs = questionObjs;
         this.sortObjs();
         this.answers = [[], [], [], []];
@@ -17,8 +20,8 @@ class Question {
 
     sortObjs() {
         this.objs = this.objs.sort(((a, b) => {
-            const aAnswerMatch = a.str.match(/^\(([1-4])\)\s/);
-            const bAnswerMatch = b.str.match(/^\(([1-4])\)\s/);
+            const aAnswerMatch = a.str.match(/^\(([1-4])\)\s?/);
+            const bAnswerMatch = b.str.match(/^\(([1-4])\)\s?/);
 
             if (aAnswerMatch && bAnswerMatch) {
                 return parseInt(aAnswerMatch[1]) - parseInt(bAnswerMatch[1]);
@@ -48,9 +51,10 @@ class Question {
         let answerNum = 0;
 
         this.objs.forEach(obj => {
-            const match = obj.str.match(new RegExp(`^\\(\\s?(${answerNum + 1})\\s?\\)`));
+//            const match = obj.str.match(new RegExp(`^\\(\\s?(${answerNum + 1})\\s?\\)`));
+            const match = obj.str.match(new RegExp(`^\\(\\s?([1234])\\s?\\)`));
             if (match) {
-                answerNum++;
+                answerNum = match[1];
                 this.answers[answerNum - 1].push(obj);
                 return;
             }

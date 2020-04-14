@@ -10,7 +10,8 @@ class Document {
                 this.pages.push(new Page(page, this.pages[index - 1].lastQuestionNum + 1));
             }
         });
-        this.questions = this.pages.map(page => page.questions).flat();
+        this.questions = this.pages.map(page => page.questions).flat().filter(q => !!q);
+
         if (!answersData) {
             return;
         }

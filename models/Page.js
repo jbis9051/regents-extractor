@@ -24,7 +24,6 @@ class Page {
         this.questionBoundares = this.getQuestionBoundaries();
         this.questionsWithElements = this.getQuestionsWithElements();
         this.questions = this.questionsWithElements.map(objs => new Question(objs.elements, objs.num));
-
     }
 
     normalizeWhitespace() {
@@ -81,17 +80,7 @@ class Page {
                 bottom = this.info.height;
             }
 
-            const isCenterBounds = {
-                num: value.num,
-                boundaries: {
-                    top: value.obj.y,
-                    bottom: bottom,
-                    left: value.obj.x,
-                    right: this.info.width
-                }
-            };
-
-            const isNotCenterBounds = {
+            const stopAtCenterBounds = {
                 num: value.num,
                 boundaries: {
                     top: value.obj.y,
@@ -101,17 +90,26 @@ class Page {
                 }
             };
 
+            const extendAllTheWay = {
+                num: value.num,
+                boundaries: {
+                    top: value.obj.y,
+                    bottom: bottom,
+                    left: value.obj.x,
+                    right: this.info.width
+                }
+            };
 
             if (
-                value.obj.x < halfway &&
+              /*  value.obj.x < halfway &&*/
                 (
-                    this.getElementsInBoundary(isCenterBounds).find(e => e.str.match(new RegExp(`^\\(\\s?(4)\\s?\\)`)))
+                    this.getElementsInBoundary(stopAtCenterBounds.boundaries).find(e => e.str.match(new RegExp(`^\\(\\s?(4)\\s?\\)`)))
              /*       || (value.obj.x + value.obj.width > halfway)  // math */
                 )
             ) { //
-                return isCenterBounds;
+                return stopAtCenterBounds;
             } else {
-                return isNotCenterBounds;
+                return extendAllTheWay;
             }
 
         });

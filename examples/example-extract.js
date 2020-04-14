@@ -1,8 +1,4 @@
-const PDFExtract = require('pdf.js-extract').PDFExtract;
-const Document = require('../models/Document');
-
-const pdfExtract = new PDFExtract();
-const options = {}; /* see below */
+const Exam = require('../models/Exam');
 
 const answers = "1\t4\n" +
     "2\t3\n" +
@@ -56,8 +52,12 @@ const answers = "1\t4\n" +
     "50\t1"; // copy and pasted from the excel spreadsheet https://www.nysedregents.org/physics/619/phys62019-sk.xlsx
 
 
+const exam = new Exam(
+    __dirname + '/docs/20100622exam.pdf',  /* https://www.nysedregents.org/physics/619/phys62019-exam.pdf */
+    answers
+);
 
-pdfExtract.extract('./docs/phys62019-exam-1.pdf' /* https://www.nysedregents.org/physics/619/phys62019-exam.pdf */, options, (err, data) => {
-    const doc = new Document(data, answers);
-    debugger;
+exam.init().then(() => {
+    console.log(exam.questions.map(q => q.questionObjs.toString() + ": " + q.answers[q.solutionIndex]).join("\n"));
 });
+
