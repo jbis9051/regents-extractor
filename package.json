@@ -1,6 +1,6 @@
 {
   "name": "regents-extractor",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "Used to extract questions from NY State Regents Exams",
   "main": "index.js",
   "keywords": [],
