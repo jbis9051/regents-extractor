@@ -19,7 +19,7 @@ class Exam {
      init() {
         return new Promise((resolve) => {
             if (Buffer && Buffer.isBuffer(this.exam)) {
-                pdfExtract.extractBuffer(this.exam, options, (err, data) => this.handleCallback(err, data, resolve));
+               return pdfExtract.extractBuffer(this.exam, options, (err, data) => this.handleCallback(err, data, resolve));
             }
             pdfExtract.extract(this.exam, options, (err, data) => this.handleCallback(err, data, resolve));
         });
