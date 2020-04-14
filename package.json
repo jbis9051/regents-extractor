@@ -1,6 +1,6 @@
 {
   "name": "regents-extractor",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Used to extract questions from NY State Regents Exams",
   "main": "index.js",
   "keywords": [],
@@ -8,5 +8,9 @@
   "license": "MIT",
   "dependencies": {
     "pdf.js-extract": "^0.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jbis9051/regents-extractor.git"
   }
 }
